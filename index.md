@@ -16,4 +16,8 @@ My name is India
 For research & development
 
 ### Presentation Slides & Video
-[![Everything Is AWESOME](https://imgur.com/a/PMoZWxz)](https://youtu.be/MqlWyAuMOZQ "Everything Is AWESOME")
+
+In the video, you can see project ideas in action.
+<p align="center">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/MqlWyAuMOZQ" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p>
