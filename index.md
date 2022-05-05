@@ -2,9 +2,13 @@
 
 ## Project Resources 
 
-### Proposal 
+## Project Proposal
 
-### Midterm Report 
+[Link to the project proposal](./assets/CV_proposal.pdf)
+
+## Midterm Report 
+
+[Link to the midterm report](./assets/CV_midterm_report.pdf)
 
 
 ## Introduction:
