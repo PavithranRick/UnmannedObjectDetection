@@ -39,9 +39,55 @@ In a typical surveillance video without pre-processing there may be lots of unwa
 
 The PETS 2006 dataset is taken as the input and fed into the algorithm. The first step is selecting the region of interest for efficient usage of algorithm. The first step consists of a ROI setting window shown in Figure 2. The corresponding shape of the ROI mask region chosen and the points selected are shown in Figure <>. These are the points that are joined together to form the ROI.
 
+### Background Subtraction
+A widely deployed object identification technique is the background subtraction algorithm of Gaussian Mixture Model. The Gaussian Mixture model is the primary algorithm for detecting moving objects in a video because of its ability to detect various scenarios in a video. Each pixel in this method is made by a separate Gaussian mixture that is learnt continuously as the video proceeds. This method is used the most because of its ability to handle the changes in lightning etc. Moving objects can be identified using this method but in order to identify objects that come from a moving to a static state an extension is needed. To use the extended algorithm the objects must attain a static condition from a moving condition. First the generic Gaussian mixture model is used to detect the moving objects then the extension is added.
+
+Foreground Detection or background subtraction is a technique used to identify objects in the foreground of a video. This technique makes use of a background model based on pixels that is learnt sequentially from the previous images of the input video. Using the learnt model the pixels of the incoming images can be classified as either background or foreground pixels. If the pixel is found as a background pixel, the features of the pixel such as colour can be used to update the model so that the model is very recent. A general algorithm used for detection works as follows given a sequence of images of size x * y.
+
+  (1) For all the pixels of the incoming input image, a Background model B is created.
+  (2) If the pixel (m,n) of the image I 𝜖 B (m,n), then the pixel is a background pixel else it is a foreground pixel.
+  (3) The background model is updated for all the background pixels identified.
+  (4) The next image is iterated and Step 2 is followed
+  
+Every pixel in the Gaussian model is made as a mixture of m Gaussian distributions. Each pixel has the following value observed in them.
+<Equation 1 snap>
+  
+ Where Yt represents the pixel value in gray scale, m specifies the number of distributions of Gaussian used. The weight of the ith distribution at t time in the Gaussian is denoted by wj,t, uj,t is the mean value of the Gaussian distributions and P denotes the density function of Gaussian. The matrix of co-variance is denoted by Tj,t. Initially all M distributions are considered as pixels that form the background. At t time, if the current pixel is not matched by any of M distributions, it will replace one of above M distributions; a weight with lowest value will be replaced by the above one and every other weight is changed. The pixel’s weight will increase if any of the distributions matches the pixel’s distribution. Initially M distributions are classified as either foreground or background by their weight. B denotes the number of background models at time t. A pixel is foreground if none of them matches to the first b distributions else it becomes a pixel which is background. The dynamic changes in the video updated as per this rule.
+  <Eqn 2 snap>
+  
+ where the learning rate and Km,t is 0 for the non matching pixel’s and 1 for the remaining models. This rule is the key factor in detecting
+the static object. In detecting moving objects the rule is useful and it makes even the objects that move from a moving state to a static object to be attached into the background. To detect the static object an extended Gaussian Mixture Model is used.
+
+In order to update the model as specified in Step 3 of the generic background model a learning rate 𝜇 is used. This learning rate provides the difference between the various models learnt. So the update of the model depends on the learning rate 𝜇.
+
+Figure 4 shows the initial updates on the background model that takes place for a period of 500 frames. After each frame is processed the background model is updated.
+
+### Long and short term detectors
+The extension proposed to identify the static foreground objects proceeds with Gaussian Mixture model by building two models that are generated at different learning rates. A model that learns and updates quickly is called a short learning model and the model that learns and updates slowly is a long learning model. The usage of both the models can be used to detect the stationary foreground object as the long learning model would make the stationary object as a foreground object as it updates at a slower speed while the short learning model considers it as a background object.
+
+Let ML and MS be the models built using longer and short rates. A pixel i is represented as the combination of two models as represented
+in equation 3. The values of ML and MS either 0 or 1 depending on background or foreground pixel. We can classify the pixels based on the value of Pi as mentioned in Table 1.
+
+  (1) When both long and short term models are 0 i.e Pi = 00 it shows a pixel that is a background one.
+  (2) When both long and short term models are 1 i.e Pi = 11 it shows a pixel that is a moving foreground object.
+  (3) When the long term is 0 and short term model is 1 i.e Pi = 01 it shows a pixel that is occluded by an object temporarily and which is shown in a recent frame.
+  (4) When the long term is 1and short term model is 1 i.e Pi = 10 it shows a pixel that is likely to be a static object.
+  
+### Finite State Machine
+As videos suffer from noises the codes can be temporary so this is why detection based on single images fail. Rather than using the pixel status of each image, sequential information of all the images is used to identify the stationary foreground object. Therefore the static object detection algorithm involves combining the short and long rate learning models and then sending them via a finite state machine that identifies the type of object eventually finding the static object. An image pixel can be of only one type at a time t. The state of the pixel i can be changed from time t to time t+1 based on the two models that are short and long learning rate models. Therefore the finite state machine’s result depends on the pixel’s combined long and short term value. The static object is detection based on a particular pattern that appears in the video.
+
+The FSM consists of a start state and the machine is started only when a moving object pixel is identified i.e. Pi = 11 occurs. This is because the main aim is to detect unmanned objects. An object becomes unmanned only when it moves from a moving to a staticstate. Therefore the machine should start in this state. The machine remains in start state for all the other pixel types like moving object, background pixel and temporarily occluded object. Next when an object is left unmanned the short rate model updates the object into the background model quickly as it learns quickly and the other model does not update as it learns slowly This leads to a change in pixel state as Pi = 10. Therefore when this pixel state arrives the FSM moves to the next state. When this state remains for a particular amount of time then the pixel can be considered as being part of the static region. This is because only when an object is static the FSM stays in the same state. Else the FSM moves back to the previous state when any other pixel type comes. This scenario occurs when the static object becomes a moving object again. When the final state is reached, only those pixels that are part of the transition are considered as static.
+
+The Finite State Machine states the following rules when a pixel that is represented by a two bit code is given. If there is a large sequence starting with 11 and continued by a further long sequence of 10 the associated pixels form the static foreground. These pixels are collected for further verification. If none of the pixels reach the final state of the machine there is no static foreground and therefore no verification is required. The figure 5 represents the Finite State Machine. By using this FSM the candidate static object is identified.
+
 ### Presentation Slides & Video
 
 In the video, you can see project ideas in action.
 <p align="center">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/MqlWyAuMOZQ" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </p>
+
+### References
+[1] C. Cuevas, R. Martínez, D. Berjón, and N. García. Detection of stationary foreground objects using multiple nonparametric background-foreground models on a finite state machine. IEEE Transactions on image processing, 26(3):1127–1142, 2016.
+[2] C. Cuevas, R. Martinez, and N. Garcia. Detection of stationary foreground objects: A survey. Computer Vision and Image Understanding, 152:41–57, 2016.
+[3] T. M. Pandit, P. Jadhav, and A. Phadke. Suspicious object detection in surveillance videos for security applications. In 2016 International Conference on Inventive Computation Technologies (ICICT), volume 1, pages 1–5. IEEE, 2016.
