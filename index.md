@@ -83,12 +83,18 @@ Every pixel in the Gaussian model is made as a mixture of m Gaussian distributio
  where the learning rate and Km,t is 0 for the non matching pixel’s and 1 for the remaining models. This rule is the key factor in detecting
 the static object. In detecting moving objects the rule is useful and it makes even the objects that move from a moving state to a static object to be attached into the background. To detect the static object an extended Gaussian Mixture Model is used.
 
+<p align="center">
+  <img alt="Light" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/intensity_histogram.png" width="45%" height="350">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="Dark" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/mixture_gaussians.png" width="45%" height="350">
+</p>
+
 In order to update the model as specified in Step 3 of the generic background model a learning rate 𝜇 is used. This learning rate provides the difference between the various models learnt. So the update of the model depends on the learning rate 𝜇.
 
 Figure 4 shows the initial updates on the background model that takes place for a period of 500 frames. After each frame is processed the background model is updated.
 
 <p align="center">
-<img width="800" title="Figure 4" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/ROI Set Window.png">
+<img width="800" title="Figure 4" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/Model updation.png">
 </p>
 <p align="center"> Figure 4 Model updation</p>
 
