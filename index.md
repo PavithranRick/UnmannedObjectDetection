@@ -74,7 +74,7 @@ Every pixel in the Gaussian model is made as a mixture of m Gaussian distributio
 <img width="800" title="Equation 1" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/eqn_1.png">
 </p>
 
- Where $$Y_{t}$$ represents the pixel value in gray scale, m specifies the number of distributions of Gaussian used. The weight of the ith distribution at t time in the Gaussian is denoted by wj,t, uj,t is the mean value of the Gaussian distributions and P denotes the density function of Gaussian. The matrix of co-variance is denoted by Tj,t. Initially all M distributions are considered as pixels that form the background. At t time, if the current pixel is not matched by any of M distributions, it will replace one of above M distributions; a weight with lowest value will be replaced by the above one and every other weight is changed. The pixel’s weight will increase if any of the distributions matches the pixel’s distribution. Initially M distributions are classified as either foreground or background by their weight. B denotes the number of background models at time t. A pixel is foreground if none of them matches to the first b distributions else it becomes a pixel which is background. The dynamic changes in the video updated as per this rule.
+ <p>Where Y<sub>t</sub> represents the pixel value in gray scale, m specifies the number of distributions of Gaussian used. The weight of the ith distribution at t time in the Gaussian is denoted by w<sub>j,t</sub> , u<sub>j,t</sub> is the mean value of the Gaussian distributions and P denotes the density function of Gaussian. The matrix of co-variance is denoted by T<sub>j,t</sub>. Initially all M distributions are considered as pixels that form the background. At t time, if the current pixel is not matched by any of M distributions, it will replace one of above M distributions; a weight with lowest value will be replaced by the above one and every other weight is changed. The pixel’s weight will increase if any of the distributions matches the pixel’s distribution. Initially M distributions are classified as either foreground or background by their weight. B denotes the number of background models at time t. A pixel is foreground if none of them matches to the first b distributions else it becomes a pixel which is background. The dynamic changes in the video updated as per this rule.</p>
  
 <p align="center">
 <img width="800" title="Equation 1" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/eqn_2.png">
@@ -95,17 +95,17 @@ Figure 4 shows the initial updates on the background model that takes place for 
 ### Long and short term detectors
 The extension proposed to identify the static foreground objects proceeds with Gaussian Mixture model by building two models that are generated at different learning rates. A model that learns and updates quickly is called a short learning model and the model that learns and updates slowly is a long learning model. The usage of both the models can be used to detect the stationary foreground object as the long learning model would make the stationary object as a foreground object as it updates at a slower speed while the short learning model considers it as a background object.
 
-Let ML and MS be the models built using longer and short rates. A pixel i is represented as the combination of two models as represented
-in equation 3. The values of ML and MS either 0 or 1 depending on background or foreground pixel. We can classify the pixels based on the value of Pi as mentioned in Table 1.
+<p>Let M<sub>L</sub> and M<sub>S</sub> be the models built using longer and short rates. A pixel i is represented as the combination of two models as represented
+  in equation 3. The values of M<sub>L</sub> and M<sub>S</sub> either 0 or 1 depending on background or foreground pixel. We can classify the pixels based on the value of P<sub>i</sub> as mentioned in Table 1.</p>
+<p>
+  (1) When both long and short term models are 0 i.e P<sub>i</sub> = 00 it shows a pixel that is a background one.
+  
+  (2) When both long and short term models are 1 i.e P<sub>i</sub> = 11 it shows a pixel that is a moving foreground object.
+  
+  (3) When the long term is 0 and short term model is 1 i.e P<sub>i</sub> = 01 it shows a pixel that is occluded by an object temporarily and which is shown in a recent frame.
+  
+  (4) When the long term is 1and short term model is 1 i.e P<sub>i</sub> = 10 it shows a pixel that is likely to be a static object.</p>
 
-  (1) When both long and short term models are 0 i.e Pi = 00 it shows a pixel that is a background one.
-  
-  (2) When both long and short term models are 1 i.e Pi = 11 it shows a pixel that is a moving foreground object.
-  
-  (3) When the long term is 0 and short term model is 1 i.e Pi = 01 it shows a pixel that is occluded by an object temporarily and which is shown in a recent frame.
-  
-  (4) When the long term is 1and short term model is 1 i.e Pi = 10 it shows a pixel that is likely to be a static object.
-  
 ### Finite State Machine
 As videos suffer from noises the codes can be temporary so this is why detection based on single images fail. Rather than using the pixel status of each image, sequential information of all the images is used to identify the stationary foreground object. Therefore the static object detection algorithm involves combining the short and long rate learning models and then sending them via a finite state machine that identifies the type of object eventually finding the static object. An image pixel can be of only one type at a time t. The state of the pixel i can be changed from time t to time t+1 based on the two models that are short and long learning rate models. Therefore the finite state machine’s result depends on the pixel’s combined long and short term value. The static object is detection based on a particular pattern that appears in the video.
 
@@ -113,7 +113,7 @@ As videos suffer from noises the codes can be temporary so this is why detection
 <img width="800" title="Equation 1" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/eqn_3.png">
 </p>
 
-The FSM consists of a start state and the machine is started only when a moving object pixel is identified i.e. Pi = 11 occurs. This is because the main aim is to detect unmanned objects. An object becomes unmanned only when it moves from a moving to a staticstate. Therefore the machine should start in this state. The machine remains in start state for all the other pixel types like moving object, background pixel and temporarily occluded object. Next when an object is left unmanned the short rate model updates the object into the background model quickly as it learns quickly and the other model does not update as it learns slowly This leads to a change in pixel state as Pi = 10. Therefore when this pixel state arrives the FSM moves to the next state. When this state remains for a particular amount of time then the pixel can be considered as being part of the static region. This is because only when an object is static the FSM stays in the same state. Else the FSM moves back to the previous state when any other pixel type comes. This scenario occurs when the static object becomes a moving object again. When the final state is reached, only those pixels that are part of the transition are considered as static.
+<p>The FSM consists of a start state and the machine is started only when a moving object pixel is identified i.e. P<sub>i</sub> = 11 occurs. This is because the main aim is to detect unmanned objects. An object becomes unmanned only when it moves from a moving to a staticstate. Therefore the machine should start in this state. The machine remains in start state for all the other pixel types like moving object, background pixel and temporarily occluded object. Next when an object is left unmanned the short rate model updates the object into the background model quickly as it learns quickly and the other model does not update as it learns slowly This leads to a change in pixel state as P<sub>i</sub> = 10. Therefore when this pixel state arrives the FSM moves to the next state. When this state remains for a particular amount of time then the pixel can be considered as being part of the static region. This is because only when an object is static the FSM stays in the same state. Else the FSM moves back to the previous state when any other pixel type comes. This scenario occurs when the static object becomes a moving object again. When the final state is reached, only those pixels that are part of the transition are considered as static.</p>
 
 <p align="center">
 <img width="800" title="Figure 5" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/766_ppt_2.png">
