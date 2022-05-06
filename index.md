@@ -130,6 +130,18 @@ As videos suffer from noises the codes can be temporary so this is why detection
 
 The Finite State Machine states the following rules when a pixel that is represented by a two bit code is given. If there is a large sequence starting with 11 and continued by a further long sequence of 10 the associated pixels form the static foreground. These pixels are collected for further verification. If none of the pixels reach the final state of the machine there is no static foreground and therefore no verification is required. The figure 5 represents the Finite State Machine. By using this FSM the candidate static object is identified.
 
+### Accuracy
+
+  | Video Scenarios |  Ground Truth  |    GS     | Three detector model | Proposed Model | 
+|:------------------|:-----------|:-----------|:----------|:----------|
+| S1 | T | F | T | T  | 
+| S2 | F | F | T | T  | 
+| S3 | F | T | T | T  | 
+| S4 | F | T | T | T  | 
+| S5 | F | F | T | T  | 
+| S6 | F | F | T | T  | 
+| S7 | F | F | T | T  | 
+
 ### Presentation Slides & Video
 
 In the video, you can see project ideas in action.
