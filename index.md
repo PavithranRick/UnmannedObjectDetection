@@ -36,6 +36,7 @@ The unmanned object detection system starts by identifying a candidate static fo
 <p align="center">
 <img width="800" title="Figure 1" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/cs766_ppt_1.png">
 </p>
+<p align="center"> Figure 1 </p>
 
 ## Implementation details 
 ### Region of interest selection
