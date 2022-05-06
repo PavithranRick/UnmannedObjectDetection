@@ -45,8 +45,11 @@ A widely deployed object identification technique is the background subtraction 
 Foreground Detection or background subtraction is a technique used to identify objects in the foreground of a video. This technique makes use of a background model based on pixels that is learnt sequentially from the previous images of the input video. Using the learnt model the pixels of the incoming images can be classified as either background or foreground pixels. If the pixel is found as a background pixel, the features of the pixel such as colour can be used to update the model so that the model is very recent. A general algorithm used for detection works as follows given a sequence of images of size x * y.
 
   (1) For all the pixels of the incoming input image, a Background model B is created.
+  
   (2) If the pixel (m,n) of the image I 𝜖 B (m,n), then the pixel is a background pixel else it is a foreground pixel.
+  
   (3) The background model is updated for all the background pixels identified.
+  
   (4) The next image is iterated and Step 2 is followed
   
 Every pixel in the Gaussian model is made as a mixture of m Gaussian distributions. Each pixel has the following value observed in them.
@@ -69,8 +72,11 @@ Let ML and MS be the models built using longer and short rates. A pixel i is rep
 in equation 3. The values of ML and MS either 0 or 1 depending on background or foreground pixel. We can classify the pixels based on the value of Pi as mentioned in Table 1.
 
   (1) When both long and short term models are 0 i.e Pi = 00 it shows a pixel that is a background one.
+  
   (2) When both long and short term models are 1 i.e Pi = 11 it shows a pixel that is a moving foreground object.
+  
   (3) When the long term is 0 and short term model is 1 i.e Pi = 01 it shows a pixel that is occluded by an object temporarily and which is shown in a recent frame.
+  
   (4) When the long term is 1and short term model is 1 i.e Pi = 10 it shows a pixel that is likely to be a static object.
   
 ### Finite State Machine
@@ -89,5 +95,7 @@ In the video, you can see project ideas in action.
 
 ### References
 [1] C. Cuevas, R. Martínez, D. Berjón, and N. García. Detection of stationary foreground objects using multiple nonparametric background-foreground models on a finite state machine. IEEE Transactions on image processing, 26(3):1127–1142, 2016.
+
 [2] C. Cuevas, R. Martinez, and N. Garcia. Detection of stationary foreground objects: A survey. Computer Vision and Image Understanding, 152:41–57, 2016.
+
 [3] T. M. Pandit, P. Jadhav, and A. Phadke. Suspicious object detection in surveillance videos for security applications. In 2016 International Conference on Inventive Computation Technologies (ICICT), volume 1, pages 1–5. IEEE, 2016.
