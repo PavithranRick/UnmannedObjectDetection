@@ -97,6 +97,14 @@ The extension proposed to identify the static foreground objects proceeds with G
 
 <p>Let M<sub>L</sub> and M<sub>S</sub> be the models built using longer and short rates. A pixel i is represented as the combination of two models as represented
   in equation 3. The values of M<sub>L</sub> and M<sub>S</sub> either 0 or 1 depending on background or foreground pixel. We can classify the pixels based on the value of P<sub>i</sub> as mentioned in Table 1.</p>
+  
+  | Pixel Values                 | Pixel type | 
+|:---------------------|:----------------|
+| 00                   | Background Pixel                            | 
+| 01                   | Occluded that is exposed in recent image    | 
+| 10                   | Likely to be static object                  |
+| 11                   | Moving Object Pixel                         | 
+
 <p>
   (1) When both long and short term models are 0 i.e P<sub>i</sub> = 00 it shows a pixel that is a background one.
   
