@@ -160,7 +160,7 @@ As videos suffer from noises the codes can be temporary so this is why detection
 <p align="center">
 <img width="800" title="Figure 5" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/766_ppt_2.png">
 </p>
-<p align="center"> Figure 5 ROI Set Window</p>
+<p align="center"> Figure 5 Finite state machine</p>
 
 The Finite State Machine states the following rules when a pixel that is represented by a two bit code is given. If there is a large sequence starting with 11 and continued by a further long sequence of 10 the associated pixels form the static foreground. These pixels are collected for further verification. If none of the pixels reach the final state of the machine there is no static foreground and therefore no verification is required. The figure 5 represents the Finite State Machine. By using this FSM the candidate static object is identified.
 
@@ -178,6 +178,11 @@ The PETS2006 video sequences dataset consisted of 7 video sequences describing v
 | S6 | F | F | T | T  | 
 | S7 | F | F | T | T  | 
 
+<p align="center">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XjbQPYcb7Gs" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p>
+
+The demo video shows the output of both long and short term detectors. As the person enters the selected region of interest, both the short and long detector produces the value of 1 as the person is a moving foreground. After sometime, the person comes to a standstill and the output of short term detector pixels starts to fade away whereas the long term detector output produces the value of 1.  The person leaves the bag and starts to move away from it, the unmanned bag can be seen only on the long term detector. The model after a sequence of frames recognises this to be a static object and flags the issue.
 
 ## Project Resources 
 
