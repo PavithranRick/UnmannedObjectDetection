@@ -165,6 +165,8 @@ The Finite State Machine states the following rules when a pixel that is represe
 
 ### Accuracy
 
+The PETS2006 video sequences dataset consisted of 7 video sequences describing various scenarios including partial occlusion of the target object behind some other object. We can see that our proposed model was able to detect suspicious objects in all scenarios as the current state of the art.
+
   | Video Scenarios |  Ground Truth  |    GS     | Three detector model | Proposed Model | 
 |:------------------|:-----------|:-----------|:----------|:----------|
 | S1 | T | F | T | T  | 
