@@ -164,7 +164,7 @@ As videos suffer from noises the codes can be temporary so this is why detection
 
 The Finite State Machine states the following rules when a pixel that is represented by a two bit code is given. If there is a large sequence starting with 11 and continued by a further long sequence of 10 the associated pixels form the static foreground. These pixels are collected for further verification. If none of the pixels reach the final state of the machine there is no static foreground and therefore no verification is required. The figure 5 represents the Finite State Machine. By using this FSM the candidate static object is identified.
 
-### Accuracy
+### Results
 
 The PETS2006 video sequences dataset consisted of 7 video sequences describing various scenarios including partial occlusion of the target object behind some other object. We can see that our proposed model was able to detect suspicious objects in all scenarios as the current state of the art.
 
