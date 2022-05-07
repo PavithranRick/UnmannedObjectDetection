@@ -29,14 +29,22 @@ In public places like railway stations, airports there may be scenarios where a 
 </p>
 
 ## Contribution and Methodology
-The time taken in the work [1] by three detector models - long term, medium term and short term is directly proportional to the number of models used and it results in 8 different states in a finite state machine. The proposed work reduces the model to two detectors, short and long term detectors, thus improving the performance and reducing the number of states in FSM to identify static foreground objects without losing much of its accuracy. 
+The time taken in the work [1] by three detector models - long term, medium term and short term is directly proportional to the number of models used and it results in 8 different states in a finite state machine. Refer Figure 1.1 for the architecture of the current state of the art algorithm. 
 
-The unmanned object detection system starts by identifying a candidate static foreground region and then to analyse the region for unmanned object. Identifying a static object is difficult as there may be many objects surrounding an object that has changes its state from a moving to static object which is the main area of interest. The steps involved in identifying the static foreground object are shown in Figure 1. After selecting the region of interest the input video is fed into two background models namely Short and Long Learning models with different learning rates which learn the background at different updation rates. The result of these models are subsequently passed through a Finite State Machine the result of which shows whether there is any candidate static object or not. The states of the Finite State Machine represent the different states of the object at each stage.
+<p align="center">
+<img width="800" title="Figure 1" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/005.png">
+</p>
+<p align="center"> Figure 1.1 Current state of the art</p>
+
+
+The proposed work reduces the model to two detectors, short and long term detectors, thus improving the performance and reducing the number of states in FSM to identify static foreground objects without losing much of its accuracy. 
+
+The unmanned object detection system starts by identifying a candidate static foreground region and then to analyse the region for unmanned object. Identifying a static object is difficult as there may be many objects surrounding an object that has changes its state from a moving to static object which is the main area of interest. The steps involved in identifying the static foreground object are shown in Figure 1.2. After selecting the region of interest the input video is fed into two background models namely Short and Long Learning models with different learning rates which learn the background at different updation rates. The result of these models are subsequently passed through a Finite State Machine the result of which shows whether there is any candidate static object or not. The states of the Finite State Machine represent the different states of the object at each stage.
 
 <p align="center">
 <img width="800" title="Figure 1" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/cs766_ppt_1.png">
 </p>
-<p align="center"> Figure 1 Architecture Overview</p>
+<p align="center"> Figure 1.2 Architecture Overview</p>
 
 ## Project Timeline 
 
@@ -57,6 +65,12 @@ In a typical surveillance video without pre-processing there may be lots of unwa
 <img width="800" title="Figure 2" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/ROI Set Window.png">
 </p>
 <p align="center"> Figure 2 ROI Set Window</p>
+
+
+<p align="center">
+<img width="800" title="Figure 1" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/004.png">
+</p>
+<p align="center"> Figure 2.2 ROI Set Window application</p>
 
 The PETS 2006 dataset is taken as the input and fed into the algorithm. The first step is selecting the region of interest for efficient usage of algorithm. The first step consists of a ROI setting window shown in Figure 2. The corresponding shape of the ROI mask region chosen and the points selected are shown in Figure 3. These are the points that are joined together to form the ROI.
 
