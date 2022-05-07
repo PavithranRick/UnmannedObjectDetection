@@ -38,6 +38,17 @@ The unmanned object detection system starts by identifying a candidate static fo
 </p>
 <p align="center"> Figure 1 Architecture Overview</p>
 
+## Project Timeline 
+
+| Phases        | Actions and Goals         | Deadline |
+|:-------------|:------------------|:------|
+| Phase 1 |  Region of interest selection | Completed  |
+| Phase 2 | Implementing Gaussian mixture model  | Completed  |
+| Phase 3 |  Short and Long term detector model      | Completed   |
+| Phase 4 | Defining and implementing finite state machine to detect static foreground objects | Completed |
+| Phase 5 | Running performance evaluation and surveillance dataset | Completed  |
+| Phase 6 | Webpage completion | Completed  |
+
 ## Implementation details 
 ### Region of interest selection
 In a typical surveillance video without pre-processing there may be lots of unwanted spaces which also comes under the processing area of the algorithm. The algorithms generally capture every pixel in the video and do analysis even if there is no useful information available. In order to avoid this overhead the video is analysed only for selective regions as per the interest. For example, a surveillance camera placed in a no parking area may also cover the roads nearby which may cause unwanted overhead in the algorithm identifying the objects. This can be avoided by selecting only the no parking area and monitoring it. Given the input video four points are selected in the order of the shape required for the ROI. The region is formed by joining the points selected by the user in the direction specified. For example, in order to make a rectangle as the ROI the top left and right corners followed by bottom right and bottom left are made in order to from the ROI. Selecting the ROI reduces the overhead and also the memory and time costs.
