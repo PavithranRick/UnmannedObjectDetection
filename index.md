@@ -8,9 +8,9 @@ In the video, you can see project ideas in action.
 </p>
 
 
-## Introduction:
+## Introduction
 
-Detecting an object that has been carried by a human into the scene and suddenly left unattended  is an important problem in visual surveillance research. Since the spectrum of suspicious objects is  broad, we can use general purpose object detection algorithms to identify these objects in the scene. . 
+Detecting an object that has been carried by a human into the scene and suddenly left unattended  is an important problem in visual surveillance research. Since the spectrum of suspicious objects is  broad, we can use general purpose object detection algorithms to identify these objects in the scene. 
 
 We have developed a system that initially detects the static foreground objects and then analyzes the back-traced trajectories of object owners to decide whether the object is left unattended or not. 
 
@@ -19,7 +19,7 @@ We have developed a system that initially detects the static foreground objects 
 </p>
 
 
-## Motivation:
+## Motivation
 
 In public places like railway stations, airports there may be scenarios where a person enters a scene with an object, places the object that may be suspicious and leaves the scene after placing the object. There are incidents where a vehicle is parked in a no parking zone. These kinds of objects are difficult to identify in a video scenario as they change from a moving position to a static position. There are many algorithms to find the moving foreground objects and also the objects that are static from the beginning of the scene. The algorithms that detect the objects that change from moving to stationary either do not detect the objects accurately or add more overhead in time and memory. Also, there may occur a scenario where a person places an object accidentally and then returns back to take the object. These kinds of scenarios should not result in an alarm, so it requires a tracking of the owner of the object. After the verification of the owner and if the owner does not return to the object only then the alarm should be raised.
 
@@ -65,17 +65,17 @@ The unmanned object detection system starts by identifying a candidate static fo
 In a typical surveillance video without pre-processing there may be lots of unwanted spaces which also comes under the processing area of the algorithm. The algorithms generally capture every pixel in the video and do analysis even if there is no useful information available. In order to avoid this overhead the video is analysed only for selective regions as per the interest. For example, a surveillance camera placed in a no parking area may also cover the roads nearby which may cause unwanted overhead in the algorithm identifying the objects. This can be avoided by selecting only the no parking area and monitoring it. Given the input video four points are selected in the order of the shape required for the ROI. The region is formed by joining the points selected by the user in the direction specified. For example, in order to make a rectangle as the ROI the top left and right corners followed by bottom right and bottom left are made in order to from the ROI. Selecting the ROI reduces the overhead and also the memory and time costs.
 
 <p align="center">
-<img width="800" title="Figure 2" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/ROI Set Window.png">
+<img width="800" title="Figure 2.1" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/ROI Set Window.png">
 </p>
-<p align="center"> Figure 2 ROI Set Window</p>
+<p align="center"> Figure 2.1 ROI Set Window</p>
 
 
 <p align="center">
-<img width="800" title="Figure 1" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/004.png">
+<img width="800" title="Figure 2.2" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/004.png">
 </p>
 <p align="center"> Figure 2.2 ROI Set Window application</p>
 
-The PETS 2006 dataset is taken as the input and fed into the algorithm. The first step is selecting the region of interest for efficient usage of algorithm. The first step consists of a ROI setting window shown in Figure 2. The corresponding shape of the ROI mask region chosen and the points selected are shown in Figure 3. These are the points that are joined together to form the ROI.
+The PETS 2006 dataset is taken as the input and fed into the algorithm. The first step is selecting the region of interest for efficient usage of algorithm. The first step consists of a ROI setting window shown in Figure 2.1. The corresponding shape of the ROI mask region chosen and the points selected are shown in Figure 3. These are the points that are joined together to form the ROI.
 
 <p align="center">
 <img width="800" title="Figure 3" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/ROI Mask 2.png">
@@ -84,7 +84,7 @@ The PETS 2006 dataset is taken as the input and fed into the algorithm. The firs
 
 
 ### Background Subtraction
-A widely deployed object identification technique is the background subtraction algorithm of Gaussian Mixture Model. The Gaussian Mixture model is the primary algorithm for detecting moving objects in a video because of its ability to detect various scenarios in a video. Each pixel in this method is made by a separate Gaussian mixture that is learnt continuously as the video proceeds. This method is used the most because of its ability to handle the changes in lightning etc. Moving objects can be identified using this method but in order to identify objects that come from a moving to a static state an extension is needed. To use the extended algorithm the objects must attain a static condition from a moving condition. First the generic Gaussian mixture model is used to detect the moving objects then the extension is added.
+A widely deployed object identification technique is the background subtraction algorithm of Gaussian Mixture Model. The Gaussian Mixture Model is the primary algorithm for detecting moving objects in a video because of its ability to detect various scenarios in a video. Each pixel in this method is made by a separate Gaussian mixture that is learnt continuously as the video proceeds. This method is used the most because of its ability to handle the changes in lightning etc. Moving objects can be identified using this method but in order to identify objects that come from a moving to a static state an extension is needed. To use the extended algorithm the objects must attain a static condition from a moving condition. First the generic Gaussian mixture model is used to detect the moving objects then the extension is added.
 
 Foreground Detection or background subtraction is a technique used to identify objects in the foreground of a video. This technique makes use of a background model based on pixels that is learnt sequentially from the previous images of the input video. Using the learnt model the pixels of the incoming images can be classified as either background or foreground pixels. If the pixel is found as a background pixel, the features of the pixel such as colour can be used to update the model so that the model is very recent. A general algorithm used for detection works as follows given a sequence of images of size x * y.
 
@@ -108,8 +108,8 @@ Every pixel in the Gaussian model is made as a mixture of m Gaussian distributio
 <img width="800" title="Equation 1" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/eqn_2.png">
 </p>
   
- where the learning rate and Km,t is 0 for the non matching pixel’s and 1 for the remaining models. This rule is the key factor in detecting
-the static object. In detecting moving objects the rule is useful and it makes even the objects that move from a moving state to a static object to be attached into the background. To detect the static object an extended Gaussian Mixture Model is used.
+ <p>where the learning rate and K<sub>m,t</sub> is 0 for the non matching pixel’s and 1 for the remaining models. This rule is the key factor in detecting
+the static object. In detecting moving objects the rule is useful and it makes even the objects that move from a moving state to a static object to be attached into the background. To detect the static object an extended Gaussian Mixture Model is used.</p>
 
 <p align="center">
   <img alt="Light" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/intensity_histogram.png" width="45%" height="250">
