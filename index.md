@@ -1,10 +1,11 @@
 # Unmanned Object Detection
 
-## Project Resources 
+### Presentation Slides & Video
 
-Project Proposal [Link to the project proposal](./assets/CV_proposal.pdf)
-
-Midterm Report [Link to the midterm report](./assets/CV_midterm_report.pdf)
+In the video, you can see project ideas in action.
+<p align="center">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/MqlWyAuMOZQ" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p>
 
 
 ## Introduction:
@@ -177,12 +178,13 @@ The PETS2006 video sequences dataset consisted of 7 video sequences describing v
 | S6 | F | F | T | T  | 
 | S7 | F | F | T | T  | 
 
-### Presentation Slides & Video
 
-In the video, you can see project ideas in action.
-<p align="center">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/MqlWyAuMOZQ" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</p>
+## Project Resources 
+
+Project Proposal [Link to the project proposal](./assets/CV_proposal.pdf)
+
+Midterm Report [Link to the midterm report](./assets/CV_midterm_report.pdf)
+
 
 ### References
 [1] C. Cuevas, R. Martínez, D. Berjón, and N. García. Detection of stationary foreground objects using multiple nonparametric background-foreground models on a finite state machine. IEEE Transactions on image processing, 26(3):1127–1142, 2016.
