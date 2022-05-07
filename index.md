@@ -184,6 +184,15 @@ The PETS2006 video sequences dataset consisted of 7 video sequences describing v
 
 The demo video shows the output of both long and short term detectors. As the person enters the selected region of interest, both the short and long detector produces the value of 1 as the person is a moving foreground. After sometime, the person comes to a standstill and the output of short term detector pixels starts to fade away whereas the long term detector output produces the value of 1.  The person leaves the bag and starts to move away from it, the unmanned bag can be seen only on the long term detector. The model after a sequence of frames recognises this to be a static object and flags the issue.
 
+### Future Work - WIP
+
+We need to differentiate between intentional and unintentional object placement. Once the static object is detected, the focus is shifted to the previous frame (likely frame the object could have been kept on the ground). A window near the detected the static object is created. Any person near this window is tracked using the Dalal-Triggs Human Detector where a histogram of oriented gradients with a single filter can be used
+
+<p align="center">
+<img width="800" src="https://raw.githubusercontent.com/PavithranRick/UnmannedObjectDetection/gh-pages/assets/007.png">
+</p>
+
+
 ## Project Resources 
 
 Project Proposal [Link to the project proposal](./assets/CV_proposal.pdf)
